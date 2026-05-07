@@ -1,0 +1,22 @@
+{
+  "name": "Sabor Ecuatoriano",
+  "short_name": "Sabor EC",
+  "description": "Carrito de compras de comida ecuatoriana tradicional",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fffaf5",
+  "theme_color": "#c1272d",
+  "lang": "es-EC",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192/c1272d/ffffff?text=SE",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://via.placeholder.com/512/c1272d/ffffff?text=SE",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

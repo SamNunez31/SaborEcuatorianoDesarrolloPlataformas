@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "nombre": "Encebollado",
+    "descripcion": "Sopa tradicional de pescado con yuca, cebolla curtida y limón.",
+    "precio": 4.50,
+    "imagen": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400",
+    "categoria": "Platos fuertes"
+  },
+  {
+    "id": 2,
+    "nombre": "Hornado con llapingachos",
+    "descripcion": "Cerdo horneado servido con tortillas de papa, mote y ensalada.",
+    "precio": 7.50,
+    "imagen": "https://images.unsplash.com/photo-1544025162-d76694265947?w=400",
+    "categoria": "Platos fuertes"
+  },
+  {
+    "id": 3,
+    "nombre": "Llapingachos",
+    "descripcion": "Tortillas de papa con queso, chorizo, huevo frito y aguacate.",
+    "precio": 5.00,
+    "imagen": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400",
+    "categoria": "Platos fuertes"
+  },
+  {
+    "id": 4,
+    "nombre": "Ceviche de camarón",
+    "descripcion": "Camarón fresco con cebolla, tomate, limón y chifles.",
+    "precio": 6.50,
+    "imagen": "https://images.unsplash.com/photo-1626200419199-391ae4be7a41?w=400",
+    "categoria": "Mariscos"
+  },
+  {
+    "id": 5,
+    "nombre": "Bolón de verde",
+    "descripcion": "Bola de plátano verde con queso o chicharrón. Ideal desayuno.",
+    "precio": 3.00,
+    "imagen": "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400",
+    "categoria": "Desayunos"
+  },
+  {
+    "id": 6,
+    "nombre": "Empanadas de viento",
+    "descripcion": "Empanadas crujientes rellenas de queso, espolvoreadas con azúcar.",
+    "precio": 2.50,
+    "imagen": "https://images.unsplash.com/photo-1601312378427-822b2b41da35?w=400",
+    "categoria": "Snacks"
+  },
+  {
+    "id": 7,
+    "nombre": "Locro de papa",
+    "descripcion": "Sopa cremosa de papa con queso, aguacate y maíz tostado.",
+    "precio": 4.00,
+    "imagen": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400",
+    "categoria": "Sopas"
+  },
+  {
+    "id": 8,
+    "nombre": "Jugo de naranjilla",
+    "descripcion": "Refrescante jugo natural de naranjilla ecuatoriana.",
+    "precio": 1.75,
+    "imagen": "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=400",
+    "categoria": "Bebidas"
+  }
+]

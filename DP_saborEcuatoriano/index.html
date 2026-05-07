@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#c1272d" />
+  <meta name="description" content="Sabor Ecuatoriano - Auténtica comida del Ecuador" />
+  <title>Sabor Ecuatoriano</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="stylesheet" href="./assets/styles.css" />
+</head>
+<body>
+
+  <!-- HEADER semántico (HTML5) -->
+  <header class="cabecera" role="banner">
+    <div class="contenedor cabecera-inner">
+      <a href="#inicio" class="marca">
+        <span aria-hidden="true">🇪🇨</span>
+        <span class="marca-texto">Sabor Ecuatoriano</span>
+      </a>
+
+      <nav role="navigation" aria-label="Navegación principal">
+        <ul class="nav-lista">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#catalogo">Menú</a></li>
+          <li><a href="#carrito" class="nav-carrito">
+            🛒 Carrito (<span id="contador-carrito">0</span>)
+          </a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="contenedor" role="main">
+
+    <!-- HERO -->
+    <section id="inicio" class="hero" aria-labelledby="hero-titulo">
+      <h1 id="hero-titulo">Auténtica comida ecuatoriana</h1>
+      <p>Pide tus platos favoritos en línea. Tu carrito se guarda automáticamente.</p>
+      <a href="#catalogo" class="btn btn-primario">Ver el menú</a>
+    </section>
+
+    <!-- CATÁLOGO -->
+    <section id="catalogo" aria-labelledby="catalogo-titulo">
+      <h2 id="catalogo-titulo">Nuestro menú</h2>
+
+      <!-- aria-busy=true durante la carga (Sem 5 sec 5.4) -->
+      <div id="estado-catalogo" class="estado" aria-live="polite" aria-busy="true">
+        Cargando platos...
+      </div>
+
+      <!-- Grid de productos (CSS Grid - Sem 3 sec 3.2) -->
+      <ul id="lista-productos" class="grid-tarjetas" aria-label="Lista de platos"></ul>
+    </section>
+
+    <!-- CARRITO -->
+    <section id="carrito" aria-labelledby="carrito-titulo">
+      <h2 id="carrito-titulo">Tu carrito</h2>
+
+      <div id="contenido-carrito" aria-live="polite">
+        <p class="texto-vacio">Aún no has agregado platos.</p>
+      </div>
+
+      <div id="resumen-carrito" class="resumen" hidden>
+        <p>Subtotal: <strong>$<span id="subtotal">0.00</span></strong></p>
+        <p>IVA (15%): <strong>$<span id="iva">0.00</span></strong></p>
+        <p class="total">Total: <strong>$<span id="total">0.00</span></strong></p>
+        <button type="button" class="btn btn-secundario" id="btn-vaciar">
+          Vaciar carrito
+        </button>
+      </div>
+
+      <p class="info-pequeno" id="info-actualizacion"></p>
+    </section>
+
+    <!-- FORMULARIO -->
+    <section id="contacto" aria-labelledby="contacto-titulo">
+      <h2 id="contacto-titulo">Finaliza tu pedido</h2>
+
+        <form id="formulario" novalidate>
+        <div class="campo">
+            <label for="nombre">Nombre completo</label>
+            <input id="nombre" name="nombre" type="text"
+                placeholder="Ej. Juan Pérez"
+                required aria-required="true"
+                aria-describedby="error-nombre" autocomplete="name"
+                minlength="3" maxlength="50" />
+            <small class="error" id="error-nombre" aria-live="polite"></small>
+        </div>
+
+        <div class="campo">
+            <label for="email">Correo electrónico</label>
+            <input id="email" name="email" type="email"
+                placeholder="ejemplo@correo.com"
+                required aria-required="true"
+                aria-describedby="error-email" autocomplete="email" />
+            <small class="error" id="error-email" aria-live="polite"></small>
+        </div>
+
+        <div class="campo">
+            <label for="telefono">Teléfono (10 dígitos)</label>
+            <input id="telefono" name="telefono" type="tel"
+                placeholder="0991234567"
+                required aria-required="true"
+                aria-describedby="error-telefono"
+                inputmode="numeric" maxlength="10" autocomplete="tel"
+                pattern="\d{10}" />
+            <small class="error" id="error-telefono" aria-live="polite"></small>
+        </div>
+
+        <div class="campo">
+            <label for="cedula">Cédula (10 dígitos)</label>
+            <input id="cedula" name="cedula" type="text"
+                placeholder="1712345678"
+                required aria-required="true"
+                aria-describedby="error-cedula"
+                inputmode="numeric" maxlength="10"
+                pattern="\d{10}" />
+            <small class="error" id="error-cedula" aria-live="polite"></small>
+        </div>
+
+        <button type="submit" class="btn btn-primario">Confirmar pedido</button>
+
+        <div id="resultado-formulario" class="resultado" aria-live="polite"></div>
+        </form>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="pie" role="contentinfo">
+    <div class="contenedor">
+      <small>© 2025 Sabor Ecuatoriano · Proyecto académico PUCE Virtual</small>
+    </div>
+  </footer>
+
+  <!-- jQuery por CDN (URL exacta del PDF Sem 6) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Modelo, Vista, Controlador (orden importa) -->
+  <script src="./model/repo.js"></script>
+  <script src="./model/carrito.js"></script>
+  <script src="./model/validacion.js"></script>
+  <script src="./view/vista.js"></script>
+  <script src="./controller/app.js"></script>
+</body>
+</html>
