@@ -32,13 +32,21 @@ $(document).ready(function () {
       Vista.mostrarErrorCatalogo("No se pudo cargar el menú. Verifica tu conexión.");
     });
 
-  // ============================================================
-  //  3) Validación en vivo del formulario
-  //     Sem 5 sec 5.2: validación con regex y eventos input/blur
-  // ============================================================
-  $("#formulario input").on("input blur", function () {
-    Modelo.validarCampo($(this).attr("id"));
-  });
+    // ============================================================
+    //  3) Validación en vivo + bloqueo de caracteres
+    //     Sem 5 sec 5.2: validación con regex y eventos
+    // ============================================================
+    $("#formulario input").on("input blur", function () {
+        Modelo.validarCampo($(this).attr("id"));
+    });
+
+    // Bloquea letras en teléfono y cédula (solo deja números)
+    $("#telefono, #cedula").on("keydown", Modelo.bloquearNoNumericos);
+
+    // Si pegan texto con letras, lo limpia automáticamente
+    $("#telefono, #cedula").on("paste input", function () {
+        Modelo.limpiarNoNumericos($(this));
+    });
 
   // ============================================================
   //  4) Envío del formulario
