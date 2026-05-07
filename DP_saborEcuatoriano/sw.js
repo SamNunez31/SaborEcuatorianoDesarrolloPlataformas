@@ -1,6 +1,6 @@
 // =====================================================
 //  Service Worker para PWA
-//  Ref: Semana 5 sec 5.3 punto 7 (PWA - Progressive Web Apps)
+//  Ref: Sem 5 sec 5.3 punto 7 (Progressive Web Apps)
 // =====================================================
 
 const CACHE = "sabor-ec-v1";

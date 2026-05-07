@@ -1,7 +1,7 @@
 // =====================================================
-//  VISTA: Renderizado con jQuery + efectos
-//  Ref: Semana 6 sec 6.2 (manipulación DOM con jQuery)
-//       Semana 6 sec 6.3 (efectos y animaciones)
+//  VISTA: Renderizado con jQuery + animaciones
+//  Ref: Sem 6 sec 6.2 (DOM jQuery)
+//       Sem 6 sec 6.3 (efectos fadeIn/animate)
 // =====================================================
 
 var Vista = Vista || {};
@@ -9,179 +9,329 @@ var Vista = Vista || {};
 (function () {
   "use strict";
 
-  /**
-   * Renderiza el catálogo de productos como tarjetas.
-   * Usa selectores y métodos jQuery (Sem 6 sec 6.2).
-   */
-  Vista.renderCatalogo = function (productos, alAgregar) {
-    var $lista = $("#lista-productos");
-    var $estado = $("#estado-catalogo");
+  var todosProductos = [];
+  var categoriaActiva = "Todos";
 
-    $lista.empty();
+  Vista.guardarProductos = function (productos) { todosProductos = productos; };
+  Vista.obtenerProductos = function () { return todosProductos; };
 
-    if (!productos || productos.length === 0) {
-      $estado.text("No hay productos disponibles.").attr("aria-busy", "false");
+  Vista.renderCatalogo = function () {
+    var $grid = $("#grid-platos");
+    $grid.attr("aria-busy", "true").empty();
+
+    var filtrados = (categoriaActiva === "Todos")
+      ? todosProductos
+      : todosProductos.filter(function (p) {
+          return p.categoria === categoriaActiva;
+        });
+
+    if (filtrados.length === 0) {
+      $grid.append('<p class="mensaje-vacio">No hay platos en esta categoría.</p>');
+      $grid.attr("aria-busy", "false");
       return;
     }
 
-    // Oculta el estado de carga (efecto fadeOut - Sem 6 sec 6.3)
-    $estado.attr("aria-busy", "false").fadeOut(300);
+    filtrados.forEach(function (producto) {
+      var inicial = producto.nombre.charAt(0);
+      var $tarjeta = $(
+        '<article class="tarjeta-plato" data-id="' + producto.id + '">' +
+          '<div class="tarjeta-imagen">' +
+            '<img src="' + producto.imagen + '" alt="' + producto.nombre + '" ' +
+                 'onerror="this.onerror=null; this.style.display=\'none\'; ' +
+                 'this.parentElement.innerHTML=\'<div class=&quot;tarjeta-imagen-fallback&quot;>' + inicial + '</div>\';" />' +
+          '</div>' +
+          '<div class="tarjeta-cuerpo">' +
+            '<span class="tarjeta-categoria">' + producto.categoria + '</span>' +
+            '<h3>' + producto.nombre + '</h3>' +
+            '<p class="tarjeta-descripcion">' + producto.descripcion + '</p>' +
+            '<div class="tarjeta-footer">' +
+              '<span class="tarjeta-precio">$' + producto.precio.toFixed(2) + '</span>' +
+              '<button type="button" class="btn-anadir" data-id="' + producto.id + '">Añadir</button>' +
+            '</div>' +
+          '</div>' +
+        '</article>'
+      );
 
-    // Crea cada tarjeta (Sem 6 sec 6.2 punto 4: inserción de elementos)
-    productos.forEach(function (p) {
-      var $li = $("<li>").addClass("tarjeta");
-
-      var $imgWrap = $("<div>").addClass("tarjeta-img-wrap");
-      var $img = $("<img>")
-        .addClass("tarjeta-img")
-        .attr("src", p.imagen)
-        .attr("alt", "Foto de " + p.nombre)
-        .attr("loading", "lazy")
-        .on("error", function () {
-          // Si la imagen falla, mostramos un placeholder
-          $(this).replaceWith(
-            $("<div>").addClass("tarjeta-img-placeholder").text("🍽️")
-          );
-        });
-      $imgWrap.append($img);
-
-      var $body = $("<div>").addClass("tarjeta-body");
-      $body.append($("<span>").addClass("tarjeta-categoria").text(p.categoria));
-      $body.append($("<h3>").addClass("tarjeta-titulo").text(p.nombre));
-      $body.append($("<p>").addClass("tarjeta-desc").text(p.descripcion));
-      $body.append($("<p>").addClass("tarjeta-precio").text("$" + p.precio.toFixed(2)));
-
-      // Botón agregar (Sem 6 sec 6.2 punto 6: eventos)
-      var $btn = $("<button>")
-        .attr("type", "button")
-        .addClass("btn btn-primario")
-        .text("Agregar al carrito")
-        .attr("aria-label", "Agregar " + p.nombre + " al carrito")
-        .on("click", function () { alAgregar(p); });
-      $body.append($btn);
-
-      // Encadenamiento jQuery (Sem 6 sec 6.1: chaining)
-      $li.append($imgWrap).append($body).hide().appendTo($lista).fadeIn(300);
+      $grid.append($tarjeta);
     });
+
+    $grid.hide().fadeIn(250);
+    $grid.attr("aria-busy", "false");
   };
 
-  /**
-   * Renderiza el contenido del carrito con jQuery.
-   */
-  Vista.renderCarrito = function (alActualizar, alEliminar) {
-    var $contenido = $("#contenido-carrito");
-    var $resumen = $("#resumen-carrito");
-    var items = Modelo.obtenerCarrito();
+  Vista.cambiarCategoria = function (cat) {
+    categoriaActiva = cat;
+    $(".btn-filtro").removeClass("activo").attr("aria-selected", "false");
+    $(".btn-filtro[data-categoria='" + cat + "']").addClass("activo").attr("aria-selected", "true");
+    Vista.renderCatalogo();
+  };
+
+  Vista.animarVuelo = function ($tarjeta, producto) {
+    var $imgOrigen = $tarjeta.find(".tarjeta-imagen");
+    var $destino = $("#btn-abrir-carrito");
+
+    if (!$imgOrigen.length || !$destino.length) return;
+
+    var origenRect = $imgOrigen[0].getBoundingClientRect();
+    var destinoRect = $destino[0].getBoundingClientRect();
+
+    var inicial = producto.nombre.charAt(0);
+    var imgHTML = '<img src="' + producto.imagen + '" alt="" ' +
+                  'onerror="this.onerror=null; this.style.display=\'none\'; ' +
+                  'this.parentElement.innerHTML=\'<div class=&quot;imagen-voladora-fallback&quot;>' + inicial + '</div>\';" />';
+
+    var $vuelo = $('<div class="imagen-voladora">' + imgHTML + '</div>');
+    $vuelo.css({
+      top: origenRect.top + (origenRect.height / 2) - 35 + "px",
+      left: origenRect.left + (origenRect.width / 2) - 35 + "px"
+    });
+
+    $("body").append($vuelo);
+
+    var destX = destinoRect.left + (destinoRect.width / 2) - 35;
+    var destY = destinoRect.top + (destinoRect.height / 2) - 35;
+
+    $vuelo.animate(
+      {
+        top: destY + "px",
+        left: destX + "px",
+        width: "20px",
+        height: "20px",
+        opacity: 0.3
+      },
+      {
+        duration: 800,
+        easing: "swing",
+        complete: function () {
+          $vuelo.remove();
+          $("#btn-abrir-carrito").addClass("bump");
+          setTimeout(function () {
+            $("#btn-abrir-carrito").removeClass("bump");
+          }, 600);
+        }
+      }
+    );
+  };
+
+  Vista.renderCarrito = function (onActualizar, onEliminar) {
+    var $body = $("#drawer-body");
+    var $footer = $("#drawer-footer");
+    var $contador = $("#contador-carrito");
+    var carrito = Modelo.obtenerCarrito();
     var totales = Modelo.calcularTotales();
 
-    // Actualiza contador del nav
-    $("#contador-carrito").text(totales.cantidadItems);
+    $contador.text(totales.cantidadItems);
+    $body.empty();
 
-    // Estado vacío
-    if (items.length === 0) {
-      $contenido.html('<p class="texto-vacio">Aún no has agregado platos.</p>');
-      $resumen.prop("hidden", true);
+    if (carrito.length === 0) {
+      $body.append(
+        '<div class="estado-vacio">' +
+          '<h3>Tu carrito está vacío</h3>' +
+          '<p>Agrega platos del menú para empezar tu pedido.</p>' +
+          '<button type="button" class="btn btn-secundario enlace-tab" data-tab="menu" id="btn-empty-menu">Ver el menú</button>' +
+        '</div>'
+      );
+      $footer.hide();
       return;
     }
 
-    // Construye tabla
-    var html =
-      '<table class="tabla-carrito" aria-label="Productos en el carrito">' +
-      '<thead><tr>' +
-      '<th>Producto</th><th>Precio</th><th>Cantidad</th>' +
-      '<th>Subtotal</th><th>Acción</th>' +
-      '</tr></thead><tbody>';
-
-    items.forEach(function (item) {
-      var sub = (item.precio * item.cantidad).toFixed(2);
-      html +=
-        '<tr>' +
-        '<td>' + item.nombre + '</td>' +
-        '<td>$' + item.precio.toFixed(2) + '</td>' +
-        '<td>' +
-          '<div class="cantidad-control">' +
-            '<button type="button" class="btn-icono" data-accion="restar" data-id="' + item.id + '" aria-label="Disminuir ' + item.nombre + '">−</button>' +
-            '<span aria-live="polite">' + item.cantidad + '</span>' +
-            '<button type="button" class="btn-icono" data-accion="sumar" data-id="' + item.id + '" aria-label="Aumentar ' + item.nombre + '">+</button>' +
+    carrito.forEach(function (item) {
+      var $item = $(
+        '<div class="item-carrito">' +
+          '<div class="item-carrito-img">' +
+            '<img src="' + item.imagen + '" alt="' + item.nombre + '" onerror="this.style.display=\'none\';" />' +
           '</div>' +
-        '</td>' +
-        '<td>$' + sub + '</td>' +
-        '<td>' +
-          '<button type="button" class="btn-icono" data-accion="eliminar" data-id="' + item.id + '" aria-label="Eliminar ' + item.nombre + '">🗑️</button>' +
-        '</td>' +
-        '</tr>';
+          '<div class="item-info">' +
+            '<h4>' + item.nombre + '</h4>' +
+            '<p>$' + (item.precio * item.cantidad).toFixed(2) + '</p>' +
+            '<button type="button" class="btn-eliminar" data-accion="eliminar" data-id="' + item.id + '">Eliminar</button>' +
+          '</div>' +
+          '<div class="item-controles">' +
+            '<button type="button" data-accion="restar" data-id="' + item.id + '" aria-label="Disminuir">−</button>' +
+            '<span>' + item.cantidad + '</span>' +
+            '<button type="button" data-accion="sumar" data-id="' + item.id + '" aria-label="Aumentar">+</button>' +
+          '</div>' +
+        '</div>'
+      );
+      $body.append($item);
     });
-    html += '</tbody></table>';
 
-    $contenido.html(html);
-
-    // Totales
+    $footer.show();
     $("#subtotal").text(totales.subtotal);
     $("#iva").text(totales.iva);
     $("#total").text(totales.total);
-    $resumen.prop("hidden", false);
 
-    // Delegación de eventos (Sem 6 sec 6.2 punto 6)
-    // ESTO ARREGLA EL BUG DEL "+": releemos el carrito FRESCO en cada click
-    $contenido.off("click", "[data-accion]").on("click", "[data-accion]", function () {
-      var id = parseInt($(this).attr("data-id"), 10);
-      var accion = $(this).attr("data-accion");
-      var itemsActuales = Modelo.obtenerCarrito();
-      var item = null;
-      for (var i = 0; i < itemsActuales.length; i++) {
-        if (itemsActuales[i].id === id) { item = itemsActuales[i]; break; }
-      }
-      if (!item) return;
-
-      if (accion === "sumar") alActualizar(id, item.cantidad + 1);
-      else if (accion === "restar") alActualizar(id, item.cantidad - 1);
-      else if (accion === "eliminar") alEliminar(id);
-    });
-
-    // Última actualización (lee la cookie)
     var fecha = Modelo.obtenerFechaActualizacion();
     if (fecha) {
       var f = new Date(fecha);
-      $("#info-actualizacion").text("Última actualización: " + f.toLocaleString("es-EC"));
+      $("#ultima-actualizacion").text("Última actualización: " + f.toLocaleString("es-EC"));
     }
   };
 
-  /**
-   * Animación cuando se agrega un producto al carrito (Sem 6 sec 6.3).
-   */
-  Vista.animarContador = function () {
-    $("#contador-carrito")
-      .stop(true)
-      .animate({ opacity: 0.3 }, 100)
-      .animate({ opacity: 1 }, 300);
-  };
+  Vista.renderResumenPedir = function () {
+    var $items = $("#resumen-items");
+    var $totales = $("#resumen-totales");
+    var carrito = Modelo.obtenerCarrito();
+    var totales = Modelo.calcularTotales();
 
-  /**
-   * Muestra error en el catálogo (cuando falla la carga).
-   */
-  Vista.mostrarErrorCatalogo = function (mensaje) {
-    $("#estado-catalogo")
-      .text("⚠️ " + mensaje)
-      .attr("aria-busy", "false")
-      .addClass("error");
-  };
+    $items.empty();
 
-  /**
-   * Muestra resultado del formulario con efecto.
-   * Sem 6 sec 6.3: combinación de fadeIn + delay + fadeOut.
-   */
-  Vista.mostrarResultadoFormulario = function (mensaje, tipo) {
-    var $el = $("#resultado-formulario");
-    $el.removeClass("ok error")
-       .addClass(tipo)
-       .html(mensaje)
-       .hide()
-       .fadeIn(400);
-  };
+    if (carrito.length === 0) {
+      $items.append('<p class="mensaje-vacio" style="padding: 1.5rem 0;">No hay productos en el carrito.</p>');
+      $totales.attr("hidden", true);
+      return;
+    }
 
-  Vista.limpiarResultadoFormulario = function () {
-    $("#resultado-formulario").fadeOut(300, function () {
-      $(this).empty().removeClass("ok error");
+    carrito.forEach(function (item) {
+      $items.append(
+        '<div class="resumen-item">' +
+          '<div>' +
+            '<span class="resumen-item-cantidad">' + item.cantidad + '×</span>' +
+            '<span class="resumen-item-nombre">' + item.nombre + '</span>' +
+          '</div>' +
+          '<span class="resumen-item-precio">$' + (item.precio * item.cantidad).toFixed(2) + '</span>' +
+        '</div>'
+      );
     });
+
+    $totales.removeAttr("hidden");
+    $("#resumen-subtotal").text(totales.subtotal);
+    $("#resumen-iva").text(totales.iva);
+    $("#resumen-total").text(totales.total);
   };
+
+  // DRAWER
+  Vista.abrirDrawer = function () {
+    var $drawer = $("#drawer-carrito");
+    var $overlay = $("#drawer-overlay");
+    $drawer.prop("hidden", false);
+    $overlay.prop("hidden", false);
+    setTimeout(function () {
+      $drawer.addClass("abierto");
+      $overlay.addClass("visible");
+      $drawer.attr("aria-hidden", "false");
+    }, 10);
+    document.body.style.overflow = "hidden";
+    $("#btn-cerrar-carrito").focus();
+  };
+
+  Vista.cerrarDrawer = function () {
+    var $drawer = $("#drawer-carrito");
+    var $overlay = $("#drawer-overlay");
+    $drawer.removeClass("abierto");
+    $overlay.removeClass("visible");
+    $drawer.attr("aria-hidden", "true");
+    setTimeout(function () {
+      $drawer.prop("hidden", true);
+      $overlay.prop("hidden", true);
+    }, 500);
+    document.body.style.overflow = "";
+    $("#btn-abrir-carrito").focus();
+  };
+
+  // MODAL CONFIRMACIÓN
+  Vista.abrirModalConfirmar = function () {
+    var carrito = Modelo.obtenerCarrito();
+    var totales = Modelo.calcularTotales();
+    var tipoEntrega = $("input[name='entrega']:checked").val() || "domicilio";
+    var $resumen = $("#confirmar-resumen");
+    $resumen.empty();
+
+    var entregaTexto = (tipoEntrega === "domicilio")
+      ? "🏠 A domicilio"
+      : "🍽️ Recoger en local";
+
+    $resumen.append(
+      '<div class="resumen-item" style="border-bottom: 0.5px solid var(--linea); padding-bottom: 10px; margin-bottom: 6px;">' +
+        '<strong style="color: var(--cafe-oscuro);">Tipo de entrega</strong>' +
+        '<span style="font-weight: 700; color: var(--naranja);">' + entregaTexto + '</span>' +
+      '</div>'
+    );
+
+    carrito.forEach(function (item) {
+      $resumen.append(
+        '<div class="resumen-item">' +
+          '<div>' +
+            '<span class="resumen-item-cantidad">' + item.cantidad + '×</span>' +
+            '<span class="resumen-item-nombre">' + item.nombre + '</span>' +
+          '</div>' +
+          '<span class="resumen-item-precio">$' + (item.precio * item.cantidad).toFixed(2) + '</span>' +
+        '</div>'
+      );
+    });
+
+    $("#confirmar-total").text(totales.total);
+
+    var $modal = $("#modal-confirmar");
+    var $overlay = $("#modal-confirmar-overlay");
+    $modal.prop("hidden", false);
+    $overlay.prop("hidden", false);
+    setTimeout(function () {
+      $modal.addClass("abierto");
+      $overlay.addClass("visible");
+      $modal.attr("aria-hidden", "false");
+    }, 10);
+    document.body.style.overflow = "hidden";
+    $("#btn-confirmar-pedido").focus();
+  };
+
+  Vista.cerrarModalConfirmar = function () {
+    var $modal = $("#modal-confirmar");
+    var $overlay = $("#modal-confirmar-overlay");
+    $modal.removeClass("abierto");
+    $overlay.removeClass("visible");
+    $modal.attr("aria-hidden", "true");
+    setTimeout(function () {
+      $modal.prop("hidden", true);
+      $overlay.prop("hidden", true);
+    }, 350);
+    document.body.style.overflow = "";
+  };
+
+  // MODAL ÉXITO
+  Vista.abrirModalExito = function (numeroPedido, mensaje) {
+    $("#exito-numero").text("#" + numeroPedido);
+    if (mensaje) $("#exito-mensaje").text(mensaje);
+
+    var $modal = $("#modal-exito");
+    var $overlay = $("#modal-exito-overlay");
+    $modal.prop("hidden", false);
+    $overlay.prop("hidden", false);
+    setTimeout(function () {
+      $modal.addClass("abierto");
+      $overlay.addClass("visible");
+      $modal.attr("aria-hidden", "false");
+    }, 10);
+    document.body.style.overflow = "hidden";
+    $("#btn-cerrar-exito").focus();
+  };
+
+  Vista.cerrarModalExito = function () {
+    var $modal = $("#modal-exito");
+    var $overlay = $("#modal-exito-overlay");
+    $modal.removeClass("abierto");
+    $overlay.removeClass("visible");
+    $modal.attr("aria-hidden", "true");
+    setTimeout(function () {
+      $modal.prop("hidden", true);
+      $overlay.prop("hidden", true);
+    }, 350);
+    document.body.style.overflow = "";
+  };
+
+  // TABS
+  Vista.cambiarTab = function (nombreTab) {
+    $(".tab-panel").removeClass("activa").attr("hidden", true);
+    $("#tab-" + nombreTab).addClass("activa").removeAttr("hidden");
+
+    $(".nav-principal a").removeClass("activo");
+    $(".nav-principal a[data-tab='" + nombreTab + "']").addClass("activo");
+
+    $("html, body").animate({ scrollTop: 0 }, 400);
+
+    if (nombreTab === "pedir") {
+      Vista.renderResumenPedir();
+    }
+  };
+
 })();

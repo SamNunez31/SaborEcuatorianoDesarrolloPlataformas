@@ -1,35 +1,32 @@
 // =====================================================
 //  MODELO: Repositorio de productos
-//  Carga el catálogo desde JSON usando AJAX con jQuery
-//  Ref: Semana 6 sec 6.5 (lectura del modelo)
-//       Semana 6 sec 6.1 ("AJAX optimizado: $.getJSON")
+//  Ref: Sem 6 sec 6.5 (lectura JSON con $.getJSON)
+//       Sem 4 sec 4.4 (Promesas + manejo de errores)
 // =====================================================
 
-// Espacio de nombres global para no contaminar window
 var Modelo = Modelo || {};
 
 (function () {
   "use strict";
 
+  var URL_PRODUCTOS = "./model/productos.json";
+
   /**
-   * Carga los productos desde productos.json.
-   * Usa $.getJSON (jQuery AJAX) tal como muestra Sem 6 sec 6.1.
-   * Devuelve una Promesa para que el Controlador la consuma con .then/.catch.
+   * Carga el catálogo desde JSON usando jQuery $.getJSON.
+   * Devuelve una Promesa (Sem 4 sec 4.3).
    */
   Modelo.cargarProductos = function () {
     return new Promise(function (resolve, reject) {
-      $.getJSON("./model/productos.json")
-        .done(function (datos) {
-          // Valida que sea un arreglo (Sem 6 sec 6.5 punto 6: validar estructura)
-          if (!Array.isArray(datos)) {
-            reject(new Error("Estructura inválida: se esperaba un arreglo."));
-            return;
-          }
-          resolve(datos);
+      $.getJSON(URL_PRODUCTOS)
+        .done(function (data) {
+          console.log("✅ Productos cargados:", data.length);
+          resolve(data);
         })
-        .fail(function (jqXHR, textStatus, errorThrown) {
-          reject(new Error("No se pudo cargar productos.json: " + textStatus));
+        .fail(function (jqxhr, status, error) {
+          console.error("❌ Error al cargar productos:", error);
+          reject(new Error("HTTP " + jqxhr.status + ": " + error));
         });
     });
   };
+
 })();

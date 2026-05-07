@@ -3,146 +3,348 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#c1272d" />
-  <meta name="description" content="Sabor Ecuatoriano - Auténtica comida del Ecuador" />
-  <title>Sabor Ecuatoriano</title>
+  <meta name="theme-color" content="#2d1810" />
+  <meta name="description" content="Sabor Ecuatoriano · Comida tradicional ecuatoriana hecha con recetas heredadas en Alausí." />
+  <title>Sabor Ecuatoriano · Cocina con historia</title>
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="stylesheet" href="./assets/styles.css" />
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
-  <!-- HEADER semántico (HTML5) -->
-  <header class="cabecera" role="banner">
-    <div class="contenedor cabecera-inner">
-      <a href="#inicio" class="marca">
-        <span aria-hidden="true">🇪🇨</span>
-        <span class="marca-texto">Sabor Ecuatoriano</span>
+  <!-- HEADER en UNA sola fila (sticky) -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+
+      <a href="#" class="enlace-tab header-marca" data-tab="inicio" aria-label="Sabor Ecuatoriano - Inicio">
+        <svg viewBox="0 0 680 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logo-titulo">
+          <title id="logo-titulo">Logo Sabor Ecuatoriano</title>
+          <g transform="translate(340, 250)">
+            <ellipse cx="0" cy="155" rx="180" ry="18" fill="#8b5a3c" opacity="0.18"/>
+            <ellipse cx="-95" cy="135" rx="32" ry="14" fill="#5f4a3a"/>
+            <ellipse cx="-95" cy="132" rx="32" ry="14" fill="#7a5d44"/>
+            <path d="M -125 132 Q -120 120 -110 122 Q -100 118 -90 122 Q -80 118 -70 124 Q -65 130 -65 132 Q -95 142 -125 132 Z" fill="#7a5d44" stroke="#3d2817" stroke-width="1.5"/>
+            <ellipse cx="95" cy="135" rx="32" ry="14" fill="#5f4a3a"/>
+            <ellipse cx="95" cy="132" rx="32" ry="14" fill="#7a5d44"/>
+            <path d="M 65 132 Q 70 120 80 122 Q 90 118 100 122 Q 110 118 120 124 Q 125 130 125 132 Q 95 142 65 132 Z" fill="#7a5d44" stroke="#3d2817" stroke-width="1.5"/>
+            <ellipse cx="0" cy="148" rx="32" ry="14" fill="#5f4a3a"/>
+            <ellipse cx="0" cy="145" rx="32" ry="14" fill="#7a5d44"/>
+            <path d="M -30 145 Q -25 133 -15 135 Q -5 131 5 135 Q 15 131 25 137 Q 30 143 30 145 Q 0 155 -30 145 Z" fill="#7a5d44" stroke="#3d2817" stroke-width="1.5"/>
+            <g transform="translate(-65, 95) rotate(-12)"><rect x="-25" y="-3" width="50" height="6" fill="#5c3d24" stroke="#3d2817" stroke-width="0.8"/><ellipse cx="-25" cy="0" rx="3" ry="3.5" fill="#3d2817"/><ellipse cx="25" cy="0" rx="3" ry="3.5" fill="#3d2817"/></g>
+            <g transform="translate(60, 100) rotate(8)"><rect x="-22" y="-3" width="44" height="6" fill="#5c3d24" stroke="#3d2817" stroke-width="0.8"/><ellipse cx="-22" cy="0" rx="3" ry="3.5" fill="#3d2817"/><ellipse cx="22" cy="0" rx="3" ry="3.5" fill="#3d2817"/></g>
+            <g transform="translate(-15, 108) rotate(-3)"><rect x="-30" y="-3" width="60" height="6" fill="#6b4730" stroke="#3d2817" stroke-width="0.8"/><ellipse cx="-30" cy="0" rx="3" ry="3.5" fill="#3d2817"/><ellipse cx="30" cy="0" rx="3" ry="3.5" fill="#3d2817"/></g>
+            <path d="M -55 105 Q -45 75 -50 55 Q -42 75 -36 55 Q -28 80 -36 105 Z" fill="#c97a3a"/>
+            <path d="M -50 102 Q -42 78 -45 62 Q -38 78 -34 62 Q -28 80 -33 102 Z" fill="#d4a017"/>
+            <path d="M -42 98 Q -38 82 -40 70 Q -36 82 -34 72 Q -32 85 -36 98 Z" fill="#fde68a"/>
+            <path d="M 30 105 Q 38 78 32 60 Q 40 78 46 58 Q 52 80 46 105 Z" fill="#c97a3a"/>
+            <path d="M 35 102 Q 40 82 36 68 Q 42 82 46 68 Q 50 84 46 102 Z" fill="#d4a017"/>
+            <path d="M 38 98 Q 41 86 39 76 Q 43 86 45 78 Q 47 88 45 98 Z" fill="#fde68a"/>
+            <path d="M -15 95 Q -8 60 -14 42 Q -4 65 4 38 Q 14 65 8 42 Q 18 65 12 95 Z" fill="#c97a3a"/>
+            <path d="M -10 92 Q -4 65 -8 50 Q 2 70 0 48 Q 8 70 4 92 Z" fill="#d4a017"/>
+            <path d="M -5 88 Q 0 70 -2 60 Q 4 75 4 60 Q 7 78 4 88 Z" fill="#fde68a"/>
+            <ellipse cx="0" cy="35" rx="100" ry="25" fill="#3d2817"/>
+            <path d="M -100 35 Q -100 -15 -85 -45 Q -50 -75 0 -75 Q 50 -75 85 -45 Q 100 -15 100 35 Q 0 65 -100 35 Z" fill="#8b5a3c"/>
+            <path d="M -100 35 Q -100 -15 -85 -45 Q -50 -75 0 -75 Q 50 -75 85 -45 Q 100 -15 100 35 Q 0 65 -100 35 Z" fill="none" stroke="#3d2817" stroke-width="3"/>
+            <ellipse cx="0" cy="-50" rx="80" ry="14" fill="#3d2817"/>
+            <ellipse cx="0" cy="-52" rx="80" ry="13" fill="#5c3d24"/>
+            <ellipse cx="0" cy="-54" rx="74" ry="11" fill="#3d2817"/>
+            <path d="M -100 -10 Q -120 -10 -120 5 Q -120 22 -100 22" stroke="#3d2817" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M 100 -10 Q 120 -10 120 5 Q 120 22 100 22" stroke="#3d2817" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M -25 -85 Q -32 -100 -22 -115 Q -12 -100 -22 -85" fill="none" stroke="#c97a3a" stroke-width="2.5" opacity="0.55" stroke-linecap="round"/>
+            <path d="M 5 -90 Q -3 -110 8 -128 Q 18 -110 8 -90" fill="none" stroke="#d4a017" stroke-width="2.5" opacity="0.55" stroke-linecap="round"/>
+            <path d="M 30 -85 Q 22 -105 35 -120 Q 48 -105 38 -85" fill="none" stroke="#c97a3a" stroke-width="2.5" opacity="0.55" stroke-linecap="round"/>
+          </g>
+          <text x="340" y="445" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="46" font-weight="700" fill="#4a2e1a" letter-spacing="-0.8">Sabor Ecuatoriano</text>
+          <line x1="220" y1="468" x2="270" y2="468" stroke="#d4a017" stroke-width="1.5"/>
+          <text x="340" y="476" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="11" font-weight="500" fill="#c97a3a" letter-spacing="3.5" font-style="italic">del fogón a tu mesa</text>
+          <line x1="410" y1="468" x2="460" y2="468" stroke="#d4a017" stroke-width="1.5"/>
+        </svg>
       </a>
 
-      <nav role="navigation" aria-label="Navegación principal">
-        <ul class="nav-lista">
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#catalogo">Menú</a></li>
-          <li><a href="#carrito" class="nav-carrito">
-            🛒 Carrito (<span id="contador-carrito">0</span>)
-          </a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
+      <nav class="nav-principal" role="navigation" aria-label="Navegación principal">
+        <a href="#" class="enlace-tab activo" data-tab="inicio">Inicio</a>
+        <a href="#" class="enlace-tab" data-tab="nosotros">Quiénes Somos</a>
+        <a href="#" class="enlace-tab" data-tab="menu">Menú</a>
+        <a href="#" class="enlace-tab" data-tab="pedir">Pedir</a>
       </nav>
+
+      <button type="button" class="btn-carrito" id="btn-abrir-carrito" aria-label="Abrir carrito">
+        Carrito · <span class="badge" id="contador-carrito">0</span>
+      </button>
+
     </div>
   </header>
 
-  <main class="contenedor" role="main">
+  <main role="main">
 
-    <!-- HERO -->
-    <section id="inicio" class="hero" aria-labelledby="hero-titulo">
-      <h1 id="hero-titulo">Auténtica comida ecuatoriana</h1>
-      <p>Pide tus platos favoritos en línea. Tu carrito se guarda automáticamente.</p>
-      <a href="#catalogo" class="btn btn-primario">Ver el menú</a>
-    </section>
-
-    <!-- CATÁLOGO -->
-    <section id="catalogo" aria-labelledby="catalogo-titulo">
-      <h2 id="catalogo-titulo">Nuestro menú</h2>
-
-      <!-- aria-busy=true durante la carga (Sem 5 sec 5.4) -->
-      <div id="estado-catalogo" class="estado" aria-live="polite" aria-busy="true">
-        Cargando platos...
+    <!-- ========== TAB: INICIO ========== -->
+    <section class="tab-panel activa" id="tab-inicio" role="tabpanel">
+      <div class="hero hero-imagen">
+        <div class="hero-contenido">
+          <span class="eyebrow eyebrow-claro">Bienvenido</span>
+          <h1>Auténtica cocina ecuatoriana</h1>
+          <p>Recetas tradicionales preparadas con cariño, ingredientes frescos y la sazón que recordamos.</p>
+          <button type="button" class="btn btn-dorado enlace-tab" data-tab="menu">Ver el menú →</button>
+        </div>
       </div>
 
-      <!-- Grid de productos (CSS Grid - Sem 3 sec 3.2) -->
-      <ul id="lista-productos" class="grid-tarjetas" aria-label="Lista de platos"></ul>
+      <div class="features-inicio">
+        <div class="feature">
+          <div class="feature-num">01</div>
+          <h3>Recetas heredadas</h3>
+          <p>Cada plato sale del cuaderno de la abuelita, sin atajos.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-num">02</div>
+          <h3>Ingredientes frescos</h3>
+          <p>Productos del día, comprados en el mercado local.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-num">03</div>
+          <h3>Sabor de Alausí</h3>
+          <p>La tradición andina servida en tu mesa.</p>
+        </div>
+      </div>
     </section>
 
-    <!-- CARRITO -->
-    <section id="carrito" aria-labelledby="carrito-titulo">
-      <h2 id="carrito-titulo">Tu carrito</h2>
-
-      <div id="contenido-carrito" aria-live="polite">
-        <p class="texto-vacio">Aún no has agregado platos.</p>
+    <!-- ========== TAB: QUIÉNES SOMOS ========== -->
+    <section class="tab-panel" id="tab-nosotros" role="tabpanel" hidden>
+      <div class="quienes-somos-header">
+        <span class="eyebrow">Sobre nosotros</span>
+        <h2>Cocina con historia</h2>
+        <div class="separador-titulo"></div>
       </div>
 
-      <div id="resumen-carrito" class="resumen" hidden>
-        <p>Subtotal: <strong>$<span id="subtotal">0.00</span></strong></p>
-        <p>IVA (15%): <strong>$<span id="iva">0.00</span></strong></p>
-        <p class="total">Total: <strong>$<span id="total">0.00</span></strong></p>
-        <button type="button" class="btn btn-secundario" id="btn-vaciar">
-          Vaciar carrito
-        </button>
-      </div>
+      <div class="bloques-historia">
+        <article class="bloque-historia">
+          <h3>Nuestra historia</h3>
+          <p>Hay olores que no se olvidan. El del refrito en la madrugada, el del maíz tostado en la sartén, el del caldo que llena la casa entera. Así crecimos en Alausí, en una cocina donde la abuelita reinaba con su olla de barro, su cuchara de palo y un cuaderno de recetas que nadie más podía descifrar. Sabor Ecuatoriano es nuestra forma de devolverle el favor.</p>
+        </article>
 
-      <p class="info-pequeno" id="info-actualizacion"></p>
+        <article class="bloque-historia">
+          <h3>Nuestra filosofía</h3>
+          <p>Creemos que la mejor comida no se inventa: se hereda. Cada plato respeta la sazón, los tiempos y los ingredientes de siempre. Sin atajos, sin polvos, sin recetas de internet.</p>
+        </article>
+
+        <article class="bloque-historia">
+          <h3>Nuestro compromiso</h3>
+          <p>Cocinar con cariño, con productos frescos del día y con el sabor que recuerdas. Porque queremos que cada visita se sienta como llegar a casa.</p>
+        </article>
+      </div>
     </section>
 
-    <!-- FORMULARIO -->
-    <section id="contacto" aria-labelledby="contacto-titulo">
-      <h2 id="contacto-titulo">Finaliza tu pedido</h2>
+    <!-- ========== TAB: MENÚ ========== -->
+    <section class="tab-panel" id="tab-menu" role="tabpanel" hidden>
+      <div class="menu-header">
+        <span class="eyebrow">Nuestro menú</span>
+        <h2>Platos de la casa</h2>
+        <div class="separador-titulo"></div>
+      </div>
 
-        <form id="formulario" novalidate>
-        <div class="campo">
+      <div class="filtros-wrapper">
+        <div class="filtros-categorias" role="tablist" aria-label="Filtrar por categoría">
+          <button type="button" class="btn-filtro activo" data-categoria="Todos">Todos</button>
+          <button type="button" class="btn-filtro" data-categoria="Sopas">Sopas</button>
+          <button type="button" class="btn-filtro" data-categoria="Platos fuertes">Platos fuertes</button>
+          <button type="button" class="btn-filtro" data-categoria="Mariscos">Mariscos</button>
+          <button type="button" class="btn-filtro" data-categoria="Desayunos">Desayunos</button>
+          <button type="button" class="btn-filtro" data-categoria="Snacks">Snacks</button>
+        </div>
+      </div>
+
+      <div class="grid-platos" id="grid-platos" aria-live="polite" aria-busy="true">
+        <p class="mensaje-vacio">Cargando platos...</p>
+      </div>
+    </section>
+
+    <!-- ========== TAB: PEDIR ========== -->
+    <section class="tab-panel" id="tab-pedir" role="tabpanel" hidden>
+      <div class="pedir-header">
+        <span class="eyebrow">Finaliza tu pedido</span>
+        <h2>¿A dónde lo enviamos?</h2>
+        <div class="separador-titulo"></div>
+      </div>
+
+      <div class="pedir-grid">
+        <div class="pedir-resumen" id="pedir-resumen">
+          <h3>Tu pedido</h3>
+          <div id="resumen-items"></div>
+          <div class="resumen-totales" id="resumen-totales" hidden>
+            <div class="linea-total"><span>Subtotal</span><span>$<span id="resumen-subtotal">0.00</span></span></div>
+            <div class="linea-total"><span>IVA (15%)</span><span>$<span id="resumen-iva">0.00</span></span></div>
+            <div class="linea-total total"><span>Total</span><span>$<span id="resumen-total">0.00</span></span></div>
+          </div>
+        </div>
+
+        <form id="formulario" novalidate class="pedir-form">
+
+          <fieldset class="campo-radio-grupo">
+            <legend>¿Cómo quieres recibir tu pedido?</legend>
+            <div class="radio-opciones">
+              <label class="radio-card">
+                <input type="radio" name="entrega" value="domicilio" id="entrega-domicilio" checked aria-required="true" />
+                <div class="radio-card-contenido">
+                  <span class="radio-icono">🏠</span>
+                  <span class="radio-titulo">A domicilio</span>
+                  <span class="radio-desc">Te lo llevamos a casa</span>
+                </div>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="entrega" value="local" id="entrega-local" aria-required="true" />
+                <div class="radio-card-contenido">
+                  <span class="radio-icono">🍽️</span>
+                  <span class="radio-titulo">Recoger en local</span>
+                  <span class="radio-desc">Pasa por tu pedido</span>
+                </div>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="campo">
             <label for="nombre">Nombre completo</label>
-            <input id="nombre" name="nombre" type="text"
-                placeholder="Ej. Juan Pérez"
-                required aria-required="true"
-                aria-describedby="error-nombre" autocomplete="name"
-                minlength="3" maxlength="50" />
-            <small class="error" id="error-nombre" aria-live="polite"></small>
-        </div>
+            <input id="nombre" name="nombre" type="text" placeholder="Ej. Juan Pérez"
+                   required aria-required="true" aria-describedby="error-nombre"
+                   autocomplete="name" minlength="3" maxlength="50" />
+            <small class="error-mensaje" id="error-nombre" aria-live="polite"></small>
+          </div>
 
-        <div class="campo">
+          <div class="campo">
             <label for="email">Correo electrónico</label>
-            <input id="email" name="email" type="email"
-                placeholder="ejemplo@correo.com"
-                required aria-required="true"
-                aria-describedby="error-email" autocomplete="email" />
-            <small class="error" id="error-email" aria-live="polite"></small>
-        </div>
+            <input id="email" name="email" type="email" placeholder="ejemplo@correo.com"
+                   required aria-required="true" aria-describedby="error-email" autocomplete="email" />
+            <small class="error-mensaje" id="error-email" aria-live="polite"></small>
+          </div>
 
-        <div class="campo">
+          <div class="campo">
             <label for="telefono">Teléfono (10 dígitos)</label>
-            <input id="telefono" name="telefono" type="tel"
-                placeholder="0991234567"
-                required aria-required="true"
-                aria-describedby="error-telefono"
-                inputmode="numeric" maxlength="10" autocomplete="tel"
-                pattern="\d{10}" />
-            <small class="error" id="error-telefono" aria-live="polite"></small>
-        </div>
+            <input id="telefono" name="telefono" type="tel" placeholder="0991234567"
+                   required aria-required="true" aria-describedby="error-telefono"
+                   inputmode="numeric" maxlength="10" autocomplete="tel" pattern="\d{10}" />
+            <small class="error-mensaje" id="error-telefono" aria-live="polite"></small>
+          </div>
 
-        <div class="campo">
+          <div class="campo">
             <label for="cedula">Cédula (10 dígitos)</label>
-            <input id="cedula" name="cedula" type="text"
-                placeholder="1712345678"
-                required aria-required="true"
-                aria-describedby="error-cedula"
-                inputmode="numeric" maxlength="10"
-                pattern="\d{10}" />
-            <small class="error" id="error-cedula" aria-live="polite"></small>
-        </div>
+            <input id="cedula" name="cedula" type="text" placeholder="1712345678"
+                   required aria-required="true" aria-describedby="error-cedula"
+                   inputmode="numeric" maxlength="10" pattern="\d{10}" />
+            <small class="error-mensaje" id="error-cedula" aria-live="polite"></small>
+          </div>
 
-        <button type="submit" class="btn btn-primario">Confirmar pedido</button>
-
-        <div id="resultado-formulario" class="resultado" aria-live="polite"></div>
+          <button type="submit" class="btn btn-primario btn-confirmar">Confirmar pedido</button>
+          <div id="resultado-formulario" class="feedback" aria-live="polite"></div>
         </form>
+      </div>
     </section>
 
   </main>
 
   <!-- FOOTER -->
-  <footer class="pie" role="contentinfo">
-    <div class="contenedor">
-      <small>© 2025 Sabor Ecuatoriano · Proyecto académico PUCE Virtual</small>
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Sabor Ecuatoriano</h4>
+        <p>Cocina tradicional con recetas heredadas. Hecho con cariño en Alausí.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li>Alausí, Ecuador</li>
+          <li>(03) 293 0145</li>
+          <li>hola@saborecuatoriano.ec</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Horarios</h4>
+        <ul>
+          <li>Lunes a Domingo</li>
+          <li>11:00 — 21:00</li>
+        </ul>
+      </div>
     </div>
+    <div class="footer-bottom">© 2025 Sabor Ecuatoriano · Cocina con historia</div>
   </footer>
 
-  <!-- jQuery por CDN (URL exacta del PDF Sem 6) -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- DRAWER DEL CARRITO -->
+  <div class="drawer-overlay" id="drawer-overlay" hidden></div>
+  <aside class="drawer-carrito" id="drawer-carrito" role="dialog"
+         aria-labelledby="drawer-titulo" aria-hidden="true" hidden>
+    <header class="drawer-header">
+      <h2 id="drawer-titulo">Tu pedido</h2>
+      <button type="button" class="btn-cerrar" id="btn-cerrar-carrito" aria-label="Cerrar">×</button>
+    </header>
+    <div class="drawer-body" id="drawer-body" aria-live="polite"></div>
+    <footer class="drawer-footer" id="drawer-footer" hidden>
+      <div class="totales">
+        <div class="linea-total"><span>Subtotal</span><span>$<span id="subtotal">0.00</span></span></div>
+        <div class="linea-total"><span>IVA (15%)</span><span>$<span id="iva">0.00</span></span></div>
+        <div class="linea-total total"><span>Total</span><span>$<span id="total">0.00</span></span></div>
+      </div>
+      <div class="drawer-acciones">
+        <button type="button" class="btn btn-secundario" id="btn-vaciar">Vaciar carrito</button>
+        <button type="button" class="btn btn-primario enlace-tab" data-tab="pedir" id="btn-ir-checkout">Continuar al pago →</button>
+      </div>
+      <p class="fecha-actualizacion" id="ultima-actualizacion"></p>
+    </footer>
+  </aside>
 
-  <!-- Modelo, Vista, Controlador (orden importa) -->
+  <!-- MODAL DE CONFIRMACIÓN -->
+  <div class="modal-overlay" id="modal-confirmar-overlay" hidden></div>
+  <div class="modal-confirmar" id="modal-confirmar" role="dialog"
+       aria-labelledby="confirmar-titulo" aria-modal="true" aria-hidden="true" hidden>
+    <div class="modal-confirmar-icono">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="40" cy="40" r="36" fill="none" stroke="#d4a017" stroke-width="3"/>
+        <path d="M 28 40 L 36 48 L 52 32" fill="none" stroke="#d4a017" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2 id="confirmar-titulo">¿Confirmar pedido?</h2>
+    <p>Revisa tu pedido antes de enviarlo. Una vez confirmado, no podrás modificarlo.</p>
+    <div class="modal-confirmar-resumen" id="confirmar-resumen"></div>
+    <div class="modal-confirmar-total">
+      <span>Total a pagar</span>
+      <strong>$<span id="confirmar-total">0.00</span></strong>
+    </div>
+    <div class="modal-confirmar-acciones">
+      <button type="button" class="btn btn-secundario" id="btn-cancelar-confirmar">Cancelar</button>
+      <button type="button" class="btn btn-dorado" id="btn-confirmar-pedido">Sí, confirmar</button>
+    </div>
+  </div>
+
+  <!-- MODAL DE ÉXITO -->
+  <div class="modal-overlay" id="modal-exito-overlay" hidden></div>
+  <div class="modal-exito" id="modal-exito" role="dialog"
+       aria-labelledby="exito-titulo" aria-modal="true" aria-hidden="true" hidden>
+    <div class="modal-exito-icono">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="50" cy="50" r="44" fill="#15803d"/>
+        <path d="M 32 52 L 44 64 L 68 38" fill="none" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2 id="exito-titulo">¡Pedido confirmado!</h2>
+    <p id="exito-mensaje">Te hemos enviado los detalles a tu correo. Tu pedido llegará pronto a tu mesa.</p>
+    <div class="modal-exito-numero">
+      <span>Número de pedido</span>
+      <strong id="exito-numero">#0000</strong>
+    </div>
+    <button type="button" class="btn btn-dorado" id="btn-cerrar-exito">Aceptar</button>
+  </div>
+
+  <!-- SCRIPTS -->
   <script src="./model/repo.js"></script>
   <script src="./model/carrito.js"></script>
   <script src="./model/validacion.js"></script>
   <script src="./view/vista.js"></script>
   <script src="./controller/app.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./sw.js').catch(function(){});
+      });
+    }
+  </script>
+
 </body>
 </html>

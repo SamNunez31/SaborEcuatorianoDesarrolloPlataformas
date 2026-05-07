@@ -1,10 +1,7 @@
 // =====================================================
-//  MODELO: Carrito + Persistencia
-//  Usa los 4 mecanismos de Web Storage de la Semana 5 (sec 5.2 y 5.3):
-//    - localStorage   → carrito persistente
-//    - sessionStorage → contador de visitas en la sesión
-//    - IndexedDB      → historial de pedidos confirmados
-//    - cookies        → fecha de última actualización
+//  MODELO: Carrito + 4 mecanismos de persistencia
+//  Ref: Sem 5 sec 5.2 (localStorage, sessionStorage)
+//       Sem 5 sec 5.3 (IndexedDB, Cookies con SameSite)
 // =====================================================
 
 var Modelo = Modelo || {};
@@ -12,18 +9,16 @@ var Modelo = Modelo || {};
 (function () {
   "use strict";
 
-  // --- Claves de almacenamiento ---
-  var LS_CARRITO = "sabor_ec_carrito";
-  var SS_VISITAS = "sabor_ec_visitas";
-  var DB_NOMBRE = "saborEcDB";
+  var LS_CARRITO = "saborec_carrito";
+  var LS_CONTADOR = "saborec_contador_pedido";
+  var LS_FORMULARIO = "saborec_formulario";
+  var SS_VISITAS = "saborec_visitas";
+  var DB_NOMBRE = "SaborEcuatorianoDB";
   var DB_TABLA = "pedidos";
 
-  // Estado en memoria (privado al módulo)
   var carrito = [];
 
-  // ============================================================
-  //  localStorage: carrito persistente entre sesiones
-  // ============================================================
+  // localStorage: carrito persistente
   Modelo.cargarCarrito = function () {
     try {
       var data = localStorage.getItem(LS_CARRITO);
@@ -35,13 +30,15 @@ var Modelo = Modelo || {};
   };
 
   function guardarCarrito() {
-    localStorage.setItem(LS_CARRITO, JSON.stringify(carrito));
-    actualizarCookieFecha(); // cada cambio actualiza la cookie
+    try {
+      localStorage.setItem(LS_CARRITO, JSON.stringify(carrito));
+      actualizarCookieFecha();
+    } catch (e) {
+      console.warn("⚠️ Error guardando en localStorage:", e);
+    }
   }
 
-  // ============================================================
-  //  sessionStorage: visitas a la sesión actual
-  // ============================================================
+  // sessionStorage: contador de visitas
   Modelo.registrarVisita = function () {
     var actual = parseInt(sessionStorage.getItem(SS_VISITAS) || "0", 10);
     var nuevo = actual + 1;
@@ -49,10 +46,7 @@ var Modelo = Modelo || {};
     return nuevo;
   };
 
-  // ============================================================
-  //  Cookies: fecha de última actualización
-  //  Ref: Sem 5 sec 5.3 punto 8 (Cookies con SameSite=Strict)
-  // ============================================================
+  // Cookies: fecha última actualización
   function actualizarCookieFecha() {
     var fecha = new Date().toISOString();
     document.cookie =
@@ -71,10 +65,7 @@ var Modelo = Modelo || {};
     return null;
   };
 
-  // ============================================================
-  //  IndexedDB: historial de pedidos
-  //  Ref: Sem 5 sec 5.3 punto 6 (IndexedDB)
-  // ============================================================
+  // IndexedDB: historial de pedidos
   function abrirDB() {
     return new Promise(function (resolve, reject) {
       var req = indexedDB.open(DB_NOMBRE, 1);
@@ -89,6 +80,15 @@ var Modelo = Modelo || {};
     });
   }
 
+  // Contador secuencial de pedidos (#0001, #0002...)
+  // Ref: Sem 5 sec 5.2 (localStorage) + Sem 4 (padStart ES6+)
+  Modelo.obtenerSiguienteNumeroPedido = function () {
+    var actual = parseInt(localStorage.getItem(LS_CONTADOR) || "0", 10);
+    var siguiente = actual + 1;
+    localStorage.setItem(LS_CONTADOR, siguiente);
+    return String(siguiente).padStart(4, "0");
+  };
+
   Modelo.guardarPedido = function (pedido) {
     return new Promise(function (resolve, reject) {
       abrirDB().then(function (db) {
@@ -99,6 +99,7 @@ var Modelo = Modelo || {};
           email: pedido.email,
           telefono: pedido.telefono,
           cedula: pedido.cedula,
+          entrega: pedido.entrega,
           items: pedido.items,
           total: pedido.totales.total,
           fecha: new Date().toISOString()
@@ -109,12 +110,8 @@ var Modelo = Modelo || {};
     });
   };
 
-  // ============================================================
-  //  API pública del carrito
-  // ============================================================
-  Modelo.obtenerCarrito = function () {
-    return carrito.slice(); // copia defensiva
-  };
+  // API pública del carrito
+  Modelo.obtenerCarrito = function () { return carrito.slice(); };
 
   Modelo.agregarProducto = function (producto) {
     var existente = null;
@@ -128,6 +125,7 @@ var Modelo = Modelo || {};
         id: producto.id,
         nombre: producto.nombre,
         precio: producto.precio,
+        imagen: producto.imagen,
         cantidad: 1
       });
     }
@@ -174,4 +172,28 @@ var Modelo = Modelo || {};
       cantidadItems: cantidadItems
     };
   };
+
+  // localStorage: persistencia de datos del formulario entre sesiones
+  // Ref: Sem 5 sec 5.2 (localStorage)
+  Modelo.guardarFormulario = function (datos) {
+    try {
+      localStorage.setItem(LS_FORMULARIO, JSON.stringify(datos));
+    } catch (e) {
+      console.warn("⚠️ Error guardando formulario:", e);
+    }
+  };
+
+  Modelo.cargarFormulario = function () {
+    try {
+      var data = localStorage.getItem(LS_FORMULARIO);
+      return data ? JSON.parse(data) : null;
+    } catch (e) {
+      return null;
+    }
+  };
+
+  Modelo.limpiarFormulario = function () {
+    localStorage.removeItem(LS_FORMULARIO);
+  };
+
 })();
