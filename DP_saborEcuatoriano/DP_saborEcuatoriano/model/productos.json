@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "nombre": "Encebollado",
+    "categoria": "Sopas",
+    "descripcion": "Caldo de albacora con yuca, tomate y cebolla curtida. Servido con chifles y limón.",
+    "precio": 8.50,
+    "imagen": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=640&q=80"
+  },
+  {
+    "id": 2,
+    "nombre": "Locro de papa",
+    "categoria": "Sopas",
+    "descripcion": "Sopa cremosa de papa con queso fresco, aguacate y cilantro andino.",
+    "precio": 7.00,
+    "imagen": "https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=640&q=80"
+  },
+  {
+    "id": 3,
+    "nombre": "Caldo de patas",
+    "categoria": "Sopas",
+    "descripcion": "Caldo reconfortante de pata de res con maní, mote y aguacate. El favorito de los domingos.",
+    "precio": 7.50,
+    "imagen": "https://images.unsplash.com/photo-1555243896-c709bfa0b564?w=640&q=80"
+  },
+  {
+    "id": 4,
+    "nombre": "Yahuarlocro",
+    "categoria": "Sopas",
+    "descripcion": "Sopa de papas con borrego y sangre frita. Plato emblemático de la sierra ecuatoriana.",
+    "precio": 8.00,
+    "imagen": "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?w=640&q=80"
+  },
+  {
+    "id": 5,
+    "nombre": "Sopa de quinua",
+    "categoria": "Sopas",
+    "descripcion": "Sopa andina con quinua, verduras frescas y papas. Nutritiva y reconfortante.",
+    "precio": 6.50,
+    "imagen": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=640&q=80"
+  },
+  {
+    "id": 6,
+    "nombre": "Llapingachos",
+    "categoria": "Platos fuertes",
+    "descripcion": "Tortillas de papa con queso, chorizo, huevo frito y aguacate. Un clásico de la sierra.",
+    "precio": 9.50,
+    "imagen": "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=640&q=80"
+  },
+  {
+    "id": 7,
+    "nombre": "Hornado",
+    "categoria": "Platos fuertes",
+    "descripcion": "Cerdo horneado servido con mote, llapingachos y agrio de la casa. El rey de los mercados.",
+    "precio": 12.00,
+    "imagen": "https://images.unsplash.com/photo-1432139509613-5c4255815697?w=640&q=80"
+  },
+  {
+    "id": 8,
+    "nombre": "Seco de pollo",
+    "categoria": "Platos fuertes",
+    "descripcion": "Pollo guisado con cerveza, naranjilla y especias. Servido con arroz amarillo y maduro.",
+    "precio": 9.00,
+    "imagen": "https://images.unsplash.com/photo-1574484284002-952d92456975?w=640&q=80"
+  },
+  {
+    "id": 9,
+    "nombre": "Fritada",
+    "categoria": "Platos fuertes",
+    "descripcion": "Carne de cerdo frita en su propia manteca, con mote, tostado, maduro y choclo.",
+    "precio": 11.00,
+    "imagen": "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=640&q=80"
+  },
+  {
+    "id": 10,
+    "nombre": "Seco de chivo",
+    "categoria": "Platos fuertes",
+    "descripcion": "Guiso de chivo con chicha, especias y yuca. Plato típico de la costa y sierra.",
+    "precio": 13.00,
+    "imagen": "https://images.unsplash.com/photo-1544025162-d76694265947?w=640&q=80"
+  },
+  {
+    "id": 11,
+    "nombre": "Churrasco ecuatoriano",
+    "categoria": "Platos fuertes",
+    "descripcion": "Bistec apanado con huevo frito, arroz, papas fritas y ensalada. Contundente y sabroso.",
+    "precio": 10.50,
+    "imagen": "https://images.unsplash.com/photo-1558030006-450675393462?w=640&q=80"
+  },
+  {
+    "id": 12,
+    "nombre": "Guatita",
+    "categoria": "Platos fuertes",
+    "descripcion": "Mondongo de res guisado en salsa de maní con papas y arroz blanco.",
+    "precio": 8.50,
+    "imagen": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=640&q=80"
+  },
+  {
+    "id": 13,
+    "nombre": "Cuy asado",
+    "categoria": "Platos fuertes",
+    "descripcion": "Cuy entero asado a la brasa, servido con papas, mote y salsa de maní. Tradición andina.",
+    "precio": 18.00,
+    "imagen": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=640&q=80"
+  },
+  {
+    "id": 14,
+    "nombre": "Mote con chicharrón",
+    "categoria": "Platos fuertes",
+    "descripcion": "Mote blanco cocinado servido con chicharrón de cerdo crujiente. Sencillo y sabroso.",
+    "precio": 7.50,
+    "imagen": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=640&q=80"
+  },
+  {
+    "id": 15,
+    "nombre": "Ceviche de camarón",
+    "categoria": "Mariscos",
+    "descripcion": "Camarón fresco con cebolla, tomate, limón y chifles crocantes. El orgullo de la costa.",
+    "precio": 11.00,
+    "imagen": "https://images.unsplash.com/photo-1559847844-5315695dadae?w=640&q=80"
+  },
+  {
+    "id": 16,
+    "nombre": "Ceviche de concha",
+    "categoria": "Mariscos",
+    "descripcion": "Conchas negras marinadas en limón y naranja agria con cebolla y cilantro.",
+    "precio": 12.00,
+    "imagen": "https://images.unsplash.com/photo-1562802378-063ec186a863?w=640&q=80"
+  },
+  {
+    "id": 17,
+    "nombre": "Encocado de pescado",
+    "categoria": "Mariscos",
+    "descripcion": "Filete de pescado en salsa de coco con especias afroecuatorianas. Servido con arroz con coco.",
+    "precio": 13.50,
+    "imagen": "https://images.unsplash.com/photo-1611599537845-1c7aca0091c0?w=640&q=80"
+  },
+  {
+    "id": 18,
+    "nombre": "Arroz con menestra",
+    "categoria": "Mariscos",
+    "descripcion": "Arroz blanco con menestra de fréjol negro y patacones. Acompañado de carne asada.",
+    "precio": 10.00,
+    "imagen": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=640&q=80"
+  },
+  {
+    "id": 19,
+    "nombre": "Bolón de verde",
+    "categoria": "Desayunos",
+    "descripcion": "Masa de plátano verde rellena de queso o chicharrón, dorada al sartén.",
+    "precio": 5.50,
+    "imagen": "https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=640&q=80"
+  },
+  {
+    "id": 20,
+    "nombre": "Tigrillo",
+    "categoria": "Desayunos",
+    "descripcion": "Verde maduro aplastado y frito con huevo, queso y chicharrón. Desayuno costeño.",
+    "precio": 6.50,
+    "imagen": "https://images.unsplash.com/photo-1510693206972-df098062cb71?w=640&q=80"
+  },
+  {
+    "id": 21,
+    "nombre": "Colada morada",
+    "categoria": "Bebidas",
+    "descripcion": "Bebida de maíz morado con frutas y especias. Infaltable en el Día de Difuntos.",
+    "precio": 3.50,
+    "imagen": "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=640&q=80"
+  },
+  {
+    "id": 22,
+    "nombre": "Jugo de naranjilla",
+    "categoria": "Bebidas",
+    "descripcion": "Refresco natural de naranjilla ecuatoriana, frutal y ligeramente ácido.",
+    "precio": 2.50,
+    "imagen": "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=640&q=80"
+  },
+  {
+    "id": 23,
+    "nombre": "Chicha de jora",
+    "categoria": "Bebidas",
+    "descripcion": "Bebida ancestral fermentada de maíz con especias andinas. Servida fría.",
+    "precio": 3.00,
+    "imagen": "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=640&q=80"
+  },
+  {
+    "id": 24,
+    "nombre": "Humitas",
+    "categoria": "Snacks",
+    "descripcion": "Masa de choclo tierno cocinada al vapor en hoja, ideal para acompañar el café.",
+    "precio": 4.50,
+    "imagen": "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=640&q=80"
+  },
+  {
+    "id": 25,
+    "nombre": "Chifles",
+    "categoria": "Snacks",
+    "descripcion": "Plátano verde frito en láminas finas, crocantes y salados. Para picar o acompañar.",
+    "precio": 3.00,
+    "imagen": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=640&q=80"
+  },
+  {
+    "id": 26,
+    "nombre": "Empanadas de viento",
+    "categoria": "Snacks",
+    "descripcion": "Empanadas fritas rellenas de queso, espolvoreadas con azúcar y canela.",
+    "precio": 4.00,
+    "imagen": "https://images.unsplash.com/photo-1604374820260-ad7c6f0d26f7?w=640&q=80"
+  },
+  {
+    "id": 27,
+    "nombre": "Quimbolitos",
+    "categoria": "Snacks",
+    "descripcion": "Pastelitos de maíz con pasas, cocinados al vapor en hoja de achira. Dulces y esponjosos.",
+    "precio": 3.50,
+    "imagen": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=640&q=80"
+  },
+  {
+    "id": 28,
+    "nombre": "Helado de paila",
+    "categoria": "Postres",
+    "descripcion": "Helado artesanal de frutas batido en paila de bronce. Sabores de mora, naranjilla y frutilla.",
+    "precio": 4.00,
+    "imagen": "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=640&q=80"
+  },
+  {
+    "id": 29,
+    "nombre": "Tres leches",
+    "categoria": "Postres",
+    "descripcion": "Bizcocho empapado en crema de tres leches con merengue y frutas. Suave y cremoso.",
+    "precio": 5.00,
+    "imagen": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=640&q=80"
+  },
+  {
+    "id": 30,
+    "nombre": "Arroz con leche",
+    "categoria": "Postres",
+    "descripcion": "Postre tradicional de arroz con leche y canela. Receta de la abuelita de siempre.",
+    "precio": 3.50,
+    "imagen": "https://images.unsplash.com/photo-1560615717-9e40f2a5a044?w=640&q=80"
+  }
+]
