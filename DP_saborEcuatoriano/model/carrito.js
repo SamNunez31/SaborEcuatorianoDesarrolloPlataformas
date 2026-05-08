@@ -6,22 +6,22 @@
 
 var Modelo = Modelo || {};
 
-(function () {
+(() => {
   "use strict";
 
-  var LS_CARRITO = "saborec_carrito";
-  var LS_CONTADOR = "saborec_contador_pedido";
-  var LS_FORMULARIO = "saborec_formulario";
-  var SS_VISITAS = "saborec_visitas";
-  var DB_NOMBRE = "SaborEcuatorianoDB";
-  var DB_TABLA = "pedidos";
+  const LS_CARRITO = "saborec_carrito";
+  const LS_CONTADOR = "saborec_contador_pedido";
+  const LS_FORMULARIO = "saborec_formulario";
+  const SS_VISITAS = "saborec_visitas";
+  const DB_NOMBRE = "SaborEcuatorianoDB";
+  const DB_TABLA = "pedidos";
 
-  var carrito = [];
+  let carrito = [];
 
   // localStorage: carrito persistente
-  Modelo.cargarCarrito = function () {
+  Modelo.cargarCarrito = () => {
     try {
-      var data = localStorage.getItem(LS_CARRITO);
+      const data = localStorage.getItem(LS_CARRITO);
       carrito = data ? JSON.parse(data) : [];
     } catch (e) {
       carrito = [];
@@ -29,95 +29,81 @@ var Modelo = Modelo || {};
     return carrito;
   };
 
-  function guardarCarrito() {
+  const guardarCarrito = () => {
     try {
       localStorage.setItem(LS_CARRITO, JSON.stringify(carrito));
       actualizarCookieFecha();
     } catch (e) {
       console.warn("⚠️ Error guardando en localStorage:", e);
     }
-  }
+  };
 
   // sessionStorage: contador de visitas
-  Modelo.registrarVisita = function () {
-    var actual = parseInt(sessionStorage.getItem(SS_VISITAS) || "0", 10);
-    var nuevo = actual + 1;
+  Modelo.registrarVisita = () => {
+    const actual = parseInt(sessionStorage.getItem(SS_VISITAS) || "0", 10);
+    const nuevo = actual + 1;
     sessionStorage.setItem(SS_VISITAS, nuevo);
     return nuevo;
   };
 
   // Cookies: fecha última actualización
-  function actualizarCookieFecha() {
-    var fecha = new Date().toISOString();
-    document.cookie =
-      "ultimaActualizacion=" + fecha +
-      "; max-age=86400; path=/; SameSite=Strict";
-  }
+  const actualizarCookieFecha = () => {
+    const fecha = new Date().toISOString();
+    document.cookie = `ultimaActualizacion=${fecha}; max-age=86400; path=/; SameSite=Strict`;
+  };
 
-  Modelo.obtenerFechaActualizacion = function () {
-    var cookies = document.cookie.split(";");
-    for (var i = 0; i < cookies.length; i++) {
-      var c = cookies[i].trim();
-      if (c.indexOf("ultimaActualizacion=") === 0) {
-        return c.substring("ultimaActualizacion=".length);
-      }
-    }
-    return null;
+  Modelo.obtenerFechaActualizacion = () => {
+    const cookies = document.cookie.split(";");
+    const cookieMatch = cookies.find(c => c.trim().startsWith("ultimaActualizacion="));
+    return cookieMatch ? cookieMatch.trim().substring("ultimaActualizacion=".length) : null;
   };
 
   // IndexedDB: historial de pedidos
-  function abrirDB() {
-    return new Promise(function (resolve, reject) {
-      var req = indexedDB.open(DB_NOMBRE, 1);
-      req.onupgradeneeded = function (e) {
-        var db = e.target.result;
+  const abrirDB = () => {
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open(DB_NOMBRE, 1);
+      req.onupgradeneeded = (e) => {
+        const db = e.target.result;
         if (!db.objectStoreNames.contains(DB_TABLA)) {
           db.createObjectStore(DB_TABLA, { keyPath: "id", autoIncrement: true });
         }
       };
-      req.onsuccess = function () { resolve(req.result); };
-      req.onerror = function () { reject(req.error); };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
     });
-  }
+  };
 
   // Contador secuencial de pedidos (#0001, #0002...)
   // Ref: Sem 5 sec 5.2 (localStorage) + Sem 4 (padStart ES6+)
-  Modelo.obtenerSiguienteNumeroPedido = function () {
-    var actual = parseInt(localStorage.getItem(LS_CONTADOR) || "0", 10);
-    var siguiente = actual + 1;
+  Modelo.obtenerSiguienteNumeroPedido = () => {
+    const actual = parseInt(localStorage.getItem(LS_CONTADOR) || "0", 10);
+    const siguiente = actual + 1;
     localStorage.setItem(LS_CONTADOR, siguiente);
     return String(siguiente).padStart(4, "0");
   };
 
-  Modelo.guardarPedido = function (pedido) {
-    return new Promise(function (resolve, reject) {
-      abrirDB().then(function (db) {
-        var tx = db.transaction(DB_TABLA, "readwrite");
-        var store = tx.objectStore(DB_TABLA);
+  Modelo.guardarPedido = (pedido) => {
+    return new Promise((resolve, reject) => {
+      abrirDB().then((db) => {
+        const tx = db.transaction(DB_TABLA, "readwrite");
+        const store = tx.objectStore(DB_TABLA);
         store.add({
-          nombre: pedido.nombre,
-          email: pedido.email,
-          telefono: pedido.telefono,
-          cedula: pedido.cedula,
-          entrega: pedido.entrega,
-          items: pedido.items,
+          ...pedido,
           total: pedido.totales.total,
           fecha: new Date().toISOString()
         });
-        tx.oncomplete = function () { resolve(true); };
-        tx.onerror = function () { reject(tx.error); };
+        tx.oncomplete = () => resolve(true);
+        tx.onerror = () => reject(tx.error);
       }).catch(reject);
     });
   };
 
   // API pública del carrito
-  Modelo.obtenerCarrito = function () { return carrito.slice(); };
+  Modelo.obtenerCarrito = () => [...carrito];
 
-  Modelo.agregarProducto = function (producto) {
-    var existente = null;
-    for (var i = 0; i < carrito.length; i++) {
-      if (carrito[i].id === producto.id) { existente = carrito[i]; break; }
-    }
+  Modelo.agregarProducto = (producto) => {
+    const existente = carrito.find(item => item.id === producto.id);
+    
     if (existente) {
       existente.cantidad++;
     } else {
@@ -132,50 +118,49 @@ var Modelo = Modelo || {};
     guardarCarrito();
   };
 
-  Modelo.actualizarCantidad = function (id, cantidad) {
-    for (var i = 0; i < carrito.length; i++) {
-      if (carrito[i].id === id) {
-        if (cantidad <= 0) {
-          carrito.splice(i, 1);
-        } else {
-          carrito[i].cantidad = cantidad;
-        }
-        guardarCarrito();
-        return;
+  Modelo.actualizarCantidad = (id, cantidad) => {
+    const index = carrito.findIndex(item => item.id === id);
+    if (index !== -1) {
+      if (cantidad <= 0) {
+        carrito.splice(index, 1);
+      } else {
+        carrito[index].cantidad = cantidad;
       }
+      guardarCarrito();
     }
   };
 
-  Modelo.eliminarProducto = function (id) {
-    carrito = carrito.filter(function (item) { return item.id !== id; });
+  Modelo.eliminarProducto = (id) => {
+    carrito = carrito.filter(item => item.id !== id);
     guardarCarrito();
   };
 
-  Modelo.vaciarCarrito = function () {
+  Modelo.vaciarCarrito = () => {
     carrito = [];
     guardarCarrito();
   };
 
-  Modelo.calcularTotales = function () {
-    var subtotal = 0;
-    var cantidadItems = 0;
-    for (var i = 0; i < carrito.length; i++) {
-      subtotal += carrito[i].precio * carrito[i].cantidad;
-      cantidadItems += carrito[i].cantidad;
-    }
-    var iva = subtotal * 0.15;
-    var total = subtotal + iva;
+  Modelo.calcularTotales = () => {
+    const { subtotal, cantidadItems } = carrito.reduce((acc, item) => {
+      acc.subtotal += item.precio * item.cantidad;
+      acc.cantidadItems += item.cantidad;
+      return acc;
+    }, { subtotal: 0, cantidadItems: 0 });
+
+    const iva = subtotal * 0.15;
+    const total = subtotal + iva;
+
     return {
       subtotal: subtotal.toFixed(2),
       iva: iva.toFixed(2),
       total: total.toFixed(2),
-      cantidadItems: cantidadItems
+      cantidadItems
     };
   };
 
   // localStorage: persistencia de datos del formulario entre sesiones
   // Ref: Sem 5 sec 5.2 (localStorage)
-  Modelo.guardarFormulario = function (datos) {
+  Modelo.guardarFormulario = (datos) => {
     try {
       localStorage.setItem(LS_FORMULARIO, JSON.stringify(datos));
     } catch (e) {
@@ -183,16 +168,16 @@ var Modelo = Modelo || {};
     }
   };
 
-  Modelo.cargarFormulario = function () {
+  Modelo.cargarFormulario = () => {
     try {
-      var data = localStorage.getItem(LS_FORMULARIO);
+      const data = localStorage.getItem(LS_FORMULARIO);
       return data ? JSON.parse(data) : null;
     } catch (e) {
       return null;
     }
   };
 
-  Modelo.limpiarFormulario = function () {
+  Modelo.limpiarFormulario = () => {
     localStorage.removeItem(LS_FORMULARIO);
   };
 
